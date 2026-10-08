@@ -1,0 +1,17 @@
+project_name: "ourPLCC issues"
+default_status: "To Do"
+statuses: ["To Do", "In Progress", "Done"]
+labels: ["wontdo"]
+types: ["fix", "feat", "docs", "test", "refactor", "chore"]
+projects: ["plcc-ng", "languages-ng", "plcc-ng-demo", "plcc-ng-devcontainer", "course-materials-ng"]
+date_format: yyyy-mm-dd
+max_column_width: 20
+auto_open_browser: true
+default_port: 6420
+remote_operations: true
+auto_commit: true
+filesystem_only: false
+bypass_git_hooks: false
+check_active_branches: true
+active_branch_days: 30
+task_prefix: "cr"
