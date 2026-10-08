@@ -8,7 +8,8 @@ ISSUE_DIRS = ("dev-docs/issues", "dev-docs/issues/done", "docs/issues", "docs/is
 RETIRED = ("dev-docs/issues", "dev-docs/roadmap.md", "dev-docs/issue-conventions.md", "docs/issues")
 ISSUE_FILE_RE = re.compile(r"^(\d{1,3})-(.+)\.md$")
 TOKEN_RE = re.compile(
-    r"(?P<link>\[(?P<text>[^\]]*)\]\((?P<target>[^)\s]+)\))"
+    r"(?P<wiki>\[\[(?P<wnum>\d{1,3})-(?P<wslug>[^\]\s]+)\]\])"
+    r"|(?P<link>\[(?P<text>[^\]]*)\]\((?P<target>[^)\s]+)\))"
     r"|(?<![\w/&#])#0*(?P<num>\d{1,3})\b")
 CODE_SPAN_RE = re.compile(r"`+[^`\n]*`+")
 AFTER_QUALIFIER_RE = re.compile(r"\s+in\s+`?ourPLCC/([a-z0-9-]+)`?")
@@ -104,6 +105,14 @@ def _link(m, file_dir, ctx, full):
     return f"[{text}](../../../{ctx.repo}/{resolved}{suffix})"
 
 
+def _wiki(m, ctx):
+    cr = ctx.cr_for(int(m.group("wnum")), m.group("wslug"), f"link {m.group('wiki')}")
+    if cr is None:
+        ctx.findings.append(f"broken issue link: {m.group('wiki')}")
+        return m.group(0)
+    return f"CR-{cr}"
+
+
 def _bare(m, chunk, ctx):
     number = int(m.group("num"))
     repo = None
@@ -133,6 +142,8 @@ def _process(chunk, file_dir, ctx, full):
     def replace(m):
         if any(a <= m.start() < b for a, b in spans):
             return m.group(0)
+        if m.group("wiki"):
+            return _wiki(m, ctx)
         if m.group("link"):
             return _link(m, file_dir, ctx, full)
         if not full:

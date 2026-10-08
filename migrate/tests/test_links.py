@@ -100,6 +100,23 @@ class LinksTest(unittest.TestCase):
     def test_html_entity_untouched(self):
         self.assertEqual(self.body("&#160;"), "&#160;")
 
+    def test_wiki_link_becomes_cr_id(self):
+        self.assertEqual(self.body("See [[160-race]] now."), "See CR-160 now.")
+
+    def test_wiki_link_duplicate_number_resolved_by_slug(self):
+        self.assertEqual(self.body("[[035-python-emitter-blocks]]"), "CR-435")
+        self.assertEqual(self.body("[[035-plcc-diagram-hangs]]"), "CR-35")
+
+    def test_wiki_link_unknown_left_and_reported(self):
+        self.assertEqual(self.body("See [[999-nope]]."), "See [[999-nope]].")
+        self.assertTrue(any("broken issue link" in f and "999-nope" in f for f in self.ctx.findings))
+
+    def test_wiki_link_in_inline_code_untouched(self):
+        self.assertEqual(self.body("use `[[160-race]]` or [[160-race]]"), "use `[[160-race]]` or CR-160")
+
+    def test_wiki_link_rewritten_in_repo_doc(self):
+        self.assertEqual(rewrite_repo_doc("See [[160-race]].", "dev-docs/specs", self.ctx), "See CR-160.")
+
     def test_repo_doc_rewrites_only_issue_and_retired_links(self):
         text = ("Issue: [#160](../issues/160-race.md)\n"
                 "[conv](../issue-conventions.md) [emit](../../src/plcc/emit.py) #160")
