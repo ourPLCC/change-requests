@@ -1,0 +1,45 @@
+---
+id: CR-146
+title: 'Cut the v1.0.0 release'
+status: Done
+assignee: []
+created_date: '2026-07-06'
+labels: []
+dependencies: []
+type: chore
+project: plcc-ng
+---
+
+## Description
+
+<!-- SECTION:DESCRIPTION:BEGIN -->
+Issue CR-112 agreed and recorded the v1.0 readiness criteria — see
+[`dev-docs/v1.0-criteria.md`](../../../plcc-ng/dev-docs/v1.0-criteria.md), all seven met. This
+issue is the actual release cutover: get a real `v1.0.0` tag published.
+
+python-semantic-release currently has `major_on_zero = false` in
+`pyproject.toml`, so even a `BREAKING CHANGE:` commit only bumps minor
+pre-1.0 (see `dev-docs/release-sop.md`'s version table) — it will not
+produce `v1.0.0` on its own. That needs to change (or the version needs
+to be forced another way) before the release can land.
+
+### Steps to Reproduce
+
+(Not a bug — omit)
+
+### Notes
+
+- Flip `major_on_zero` to `true` in `pyproject.toml` (or otherwise force
+  a `1.0.0` tag) — confirm this doesn't retroactively reinterpret past
+  commits when semantic-release next runs.
+- Cut the release per `dev-docs/release-sop.md`.
+- Update `docs/whats-new.md`: replace the first entry's `2026-07-XX`
+  placeholder with the actual release date, and confirm the entry
+  heading and the `<!-- last-covered: ... -->` marker match `v1.0.0`.
+- Run `bin/release/verify.bash <tag>` (without `--no-install`) against
+  the published release.
+- Carried over verbatim from issue CR-112's notes, which this issue
+  supersedes for the cutover work.
+
+Migrated from plcc-ng #146.
+<!-- SECTION:DESCRIPTION:END -->

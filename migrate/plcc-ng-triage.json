@@ -1,0 +1,92 @@
+{
+  "open": {
+    "154": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Testable: python-semantic-release constraint moves to 10.x and the release dry-run passes. Counts 0/0/1 (commit hit is PR-number noise); not a whether-question, so cr."
+    },
+    "156": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Open question is when/what to migrate to, but cited by a plan (docs=1) so not eligible for draft; criteria writable once a trigger fires (decision recorded + docs build on chosen successor). Counts 0/1/1."
+    },
+    "160": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Testable: two concurrent plcc-scan runs in one cwd both succeed. Counts 2/2/1, cited by other issues and docs."
+    },
+    "161": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Undecided whether to rename (criteria would be conditional), but counts 2/2/1 (cited by #189, #199 and a spec) so the draft rule's all-zero condition fails; cr."
+    },
+    "184": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Six concrete diagnostic/test-hygiene follow-ups, each checkable. Counts 0/0/2 (commit hits are PR-number noise) but criteria are writable, so cr."
+    },
+    "185": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Docs fix: document per-source parsing difference from PLCC rep; verifiable by page content. Counts 2/1/1."
+    },
+    "186": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Testable: a semantic action writing a partial stdout line no longer hangs plcc-rep. Counts 2/1/1."
+    },
+    "187": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Testable: new output and clean-exit record kinds handled by rep and each runtime. Counts 2/1/1."
+    },
+    "189": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Cited (1/1/1); closed in Phase 2 by this migration. cr per brief."
+    },
+    "190": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Testable: non-LanguageError action exception keeps the session alive and is not blamed on the spec. Counts 1/0/1."
+    },
+    "191": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Testable: RecursionError is reported as a program/resource error, not a specification error. Counts 1/0/1."
+    },
+    "193": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Testable: plcc-diagram exits non-zero when PlantUML returns the Syntax error image. Counts 0/0/1 (PR-number noise) but criteria writable, so cr."
+    },
+    "195": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Testable: opt-in single-module Python output generated and runs. Counts 3/2/2; a design spec already exists."
+    },
+    "196": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Testable: a Java top fragment is emitted (or rejected with a diagnostic). Counts 1/1/1."
+    },
+    "197": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Testable: new language-neutral hook names accepted with old names kept. Counts 3/1/0; spec/plans exist."
+    },
+    "198": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Testable: a grammar class colliding with a generated file name is rejected or disambiguated. Counts 1/0/1; remote branch generated-file-name-collisions exists but no merged work, so To Do."
+    },
+    "199": {
+      "as": "cr",
+      "status": "To Do",
+      "reason": "Cited (0/1/4); closed in Phase 2 by this migration. cr per brief; work is in progress on the branch but it closes at Phase 2, so To Do per brief."
+    }
+  },
+  "type_overrides": {
+    "105": "fix"
+  }
+}
