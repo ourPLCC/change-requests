@@ -110,7 +110,8 @@ def convert(repo_root, tracker_root, triage):
             task_id, status = f"CR-{ids[issue.rel_path]}", "Done"
             if WONTDO_RE.match(issue.status_note):
                 labels = ["wontdo"]
-                final_summary = f"Abandoned before migration: {issue.status_note}"
+                note = rewrite_issue_body(issue.status_note, posixpath.dirname(issue.rel_path), ctx)
+                final_summary = f"Abandoned before migration: {note}"
                 wontdo.append(f"#{issue.number:03d} -> {task_id}: {issue.status_note}")
         elif folder == "drafts":
             draft_number += 1

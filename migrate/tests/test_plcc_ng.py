@@ -27,7 +27,7 @@ class ConvertTest(unittest.TestCase):
         files = {
             issues / "done" / "035-plcc-diagram-hangs.md": legacy(35, "Diagram hangs", "bug"),
             issues / "done" / "035-python-emitter-blocks.md": legacy(35, "Emitter: blocks", "feature"),
-            issues / "done" / "111-mermaid.md": legacy(111, "Mermaid", "feat", "abandoned — not now"),
+            issues / "done" / "111-mermaid.md": legacy(111, "Mermaid", "feat", "abandoned — superseded by #160"),
             issues / "160-race.md": legacy(160, "Race", "fix", body="Like #035 and [#111](done/111-mermaid.md)."),
             issues / "161-rename.md": legacy(161, "Rename?", "enhancement"),
         }
@@ -69,7 +69,7 @@ class ConvertTest(unittest.TestCase):
         self.assertIn("Migrated from plcc-ng #160.", race)
         mermaid = (self.tracker / "backlog" / "completed" / "cr-111 - Mermaid.md").read_text()
         self.assertIn("  - wontdo", mermaid)
-        self.assertIn("Abandoned before migration: abandoned — not now", mermaid)
+        self.assertIn("Abandoned before migration: abandoned — superseded by CR-160", mermaid)
         emitter = (self.tracker / "backlog" / "completed" / "cr-435 - Emitter-blocks.md").read_text()
         self.assertIn("type: feat", emitter)
         self.assertIn("CR-435", report)
