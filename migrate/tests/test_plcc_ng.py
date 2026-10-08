@@ -1,4 +1,5 @@
 import shutil
+import dataclasses
 import tempfile
 import textwrap
 import unittest
@@ -50,6 +51,14 @@ class ConvertTest(unittest.TestCase):
         self.assertEqual(ids["dev-docs/issues/done/035-plcc-diagram-hangs.md"], 35)
         self.assertEqual(ids["dev-docs/issues/done/035-python-emitter-blocks.md"], 435)
         self.assertEqual(len(remaps), 1)
+
+    def test_assign_ids_guards_remap_range(self):
+        issues = plcc_ng.load_issues(self.repo)[:2]
+        issues = [dataclasses.replace(issues[0], number=150),
+                  dataclasses.replace(issues[1], number=150)]
+        with self.assertRaises(SystemExit) as cm:
+            plcc_ng.assign_ids(issues)
+        self.assertIn("499", str(cm.exception))
 
     def test_convert_places_files_by_state(self):
         plcc_ng.convert(self.repo, self.tracker, self.triage)

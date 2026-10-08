@@ -41,6 +41,9 @@ def assign_ids(issues, offset=OFFSET):
         ids[group[0].rel_path] = number + offset
         if len(group) == 2:
             cr = number + offset + DUP_OFFSET
+            if not 400 <= cr <= 499:
+                raise SystemExit(f"duplicate #{number:03d} remaps to CR-{cr}, outside the "
+                                 f"reserved CR-400..CR-499 range (500+ is languages-ng)")
             ids[group[1].rel_path] = cr
             remaps.append(f"#{number:03d} {group[1].slug} -> CR-{cr} "
                           f"(#{number:03d} {group[0].slug} keeps CR-{number + offset})")
