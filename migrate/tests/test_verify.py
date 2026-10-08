@@ -1,0 +1,60 @@
+import os
+import shutil
+import subprocess
+import tempfile
+import unittest
+from pathlib import Path
+from unittest import mock
+
+from migrate import plcc_ng, verify
+
+TRACKER = Path(__file__).resolve().parents[2]
+HAS_BACKLOG = shutil.which("backlog") is not None
+
+
+@unittest.skipUnless(HAS_BACKLOG, "backlog CLI not installed")
+class VerifyTest(unittest.TestCase):
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        base = Path(self._tmp.name)
+        self.repo, self.tracker = base / "plcc-ng", base / "issues"
+        issues = self.repo / "dev-docs" / "issues"
+        (issues / "done").mkdir(parents=True)
+        (issues / "done" / "010-old.md").write_text("# 010 - Old: thing\n\n**Type:** bug\n**Date:** 2026-01-01\n\n## Description\n\nO.\n")
+        (issues / "160-race.md").write_text("# 160 - Race\n\n**Type:** fix\n**Date:** 2026-07-01\n\n## Description\n\nR.\n")
+        self.tracker.mkdir()
+        for name in ("backlog", "bin"):
+            shutil.copytree(TRACKER / name, self.tracker / name,
+                            ignore=shutil.ignore_patterns("tasks", "completed", "drafts", "archive"))
+        for folder in ("tasks", "completed", "drafts"):
+            (self.tracker / "backlog" / folder).mkdir(exist_ok=True)
+        shutil.copy(TRACKER / "backlog" / "completed" / "cr-999 - Tracker-begins-here.md",
+                    self.tracker / "backlog" / "completed")
+        cfg = self.tracker / "backlog" / "config.yml"
+        cfg.write_text(cfg.read_text().replace("auto_commit: true", "auto_commit: false")
+                       .replace("remote_operations: true", "remote_operations: false"))
+        subprocess.run(["git", "init", "-q", str(self.tracker)], check=True)
+        subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", "-C", str(self.tracker),
+                        "commit", "-q", "--allow-empty", "-m", "init"], check=True)
+        self.triage = {"open": {"160": {"as": "cr", "status": "To Do", "reason": "r"}}}
+        plcc_ng.convert(self.repo, self.tracker, self.triage)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def test_verify_passes_on_converted_tracker(self):
+        self.assertEqual(verify.verify(self.repo, self.tracker, self.triage), [])
+
+    def test_verify_detects_missing_file(self):
+        next((self.tracker / "backlog" / "completed").glob("cr-10 *")).unlink()
+        self.assertTrue(any("completed" in e for e in verify.verify(self.repo, self.tracker, self.triage)))
+
+    def test_verify_ignores_ambient_backlog_cwd(self):
+        decoy = Path(self._tmp.name) / "decoy"
+        decoy.mkdir()
+        with mock.patch.dict(os.environ, {"BACKLOG_CWD": str(decoy)}):
+            self.assertEqual(verify.verify(self.repo, self.tracker, self.triage), [])
+
+
+if __name__ == "__main__":
+    unittest.main()
