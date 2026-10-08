@@ -112,6 +112,15 @@ class CheckTest(unittest.TestCase):
         self.assertEqual(self.errors(), [])
         self.assertError("uncommitted change under backlog/", pre_push=True)
 
+    def test_pre_push_flags_untracked_even_if_host_hides_them(self):
+        git = ["git", "-c", "user.name=t", "-c", "user.email=t@t", "-C", str(self.root)]
+        subprocess.run(git + ["init", "-q"], check=True)
+        subprocess.run(git + ["config", "status.showUntrackedFiles", "no"], check=True)
+        subprocess.run(git + ["add", "-A"], check=True)
+        subprocess.run(git + ["commit", "-q", "--allow-empty", "-m", "x"], check=True)
+        self.add("tasks", "cr-1000 - A.md", record("CR-1000"))
+        self.assertError("uncommitted change under backlog/", pre_push=True)
+
     def test_quoted_scalars_parse(self):
         fm = check.parse_frontmatter("---\ntitle: 'A: b ''c'''\nid: CR-1\n---\n")
         self.assertEqual(fm["title"], "A: b 'c'")

@@ -123,7 +123,7 @@ def check(root, pre_push=False):
 
     if pre_push:
         out = subprocess.run(
-            ["git", "-C", str(root), "status", "--porcelain", "--", "backlog"],
+            ["git", "-C", str(root), "status", "--porcelain", "--untracked-files=all", "--", "backlog"],
             capture_output=True, text=True, check=True).stdout
         for line in out.splitlines():
             errors.append(f"uncommitted change under backlog/: {line}")
