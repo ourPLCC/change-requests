@@ -1,7 +1,7 @@
 # ourPLCC change requests
 
 The central tracker for work on the ourPLCC code repositories: plcc-ng,
-languages-ng, plcc-ng-demo, and plcc-ng-devcontainer. It is managed with
+languages-ng, plcc-ng-demo, plcc-ng-devcontainer, and course-materials-ng. It is managed with
 [Backlog.md](https://github.com/MrLesk/Backlog.md) and is the workflow guide
 for maintainers and their agents.
 
@@ -171,7 +171,7 @@ to renumber the unpushed CR, commit, and push. CI runs the same check plus
 
 ## Checks (`bin/check.py`)
 
-Fails on: duplicate IDs or a filename that does not match its `id`; a
+Fails on: duplicate IDs (drafts included) or a filename that does not match its `id`; a
 `DRAFT-N` cited outside its own file; a CR without exactly one configured
 `project` or `type`; an unconfigured label; anything in `archive/`; and, with
 `--pre-push`, uncommitted changes under `backlog/`. `CR-999` is exempt from
