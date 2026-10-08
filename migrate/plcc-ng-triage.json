@@ -8,7 +8,7 @@
     "156": {
       "as": "cr",
       "status": "To Do",
-      "reason": "Open question is when/what to migrate to, but cited by a plan (docs=1) so not eligible for draft; criteria writable once a trigger fires (decision recorded + docs build on chosen successor). Counts 0/1/1."
+      "reason": "Open question is when/what to migrate to (no testable criteria today). Counts 0/1/1: the one doc citation is a passing 'tracked separately in #156' in dev-docs/plans/2026-08-03-181-182-doc-example-drift.md; the commit hit is PR-number noise ('Merge pull request #156'). Stays cr/To Do only because it is cited (draft rule (b) fails); candidate for a human to demote to draft or reword at checkpoint review."
     },
     "160": {
       "as": "cr",
@@ -18,7 +18,7 @@
     "161": {
       "as": "cr",
       "status": "To Do",
-      "reason": "Undecided whether to rename (criteria would be conditional), but counts 2/2/1 (cited by #189, #199 and a spec) so the draft rule's all-zero condition fails; cr."
+      "reason": "Whether to rename is undecided (criteria would be conditional). Counts 2/2/1 are meta-references: #189 and #199 list it as hand-migrated, the #199 central-tracker spec line 17 does the same, and another spec mentions it as an out-of-scope open issue; the commit hit is PR-number noise ('Merge pull request #161'). Stays cr/To Do only because it is cited (draft rule (b) fails; a draft would leave those references dangling after rewrite to CR-161); candidate for a human to demote or reword at checkpoint review."
     },
     "184": {
       "as": "cr",
