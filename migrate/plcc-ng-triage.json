@@ -33,7 +33,7 @@
     "186": {
       "as": "cr",
       "status": "To Do",
-      "reason": "Testable: a semantic action writing a partial stdout line no longer hangs plcc-rep. Counts 2/1/1."
+      "reason": "Testable: a semantic action writing a partial stdout line no longer hangs plcc-rep. Counts 1/2/1."
     },
     "187": {
       "as": "cr",
