@@ -24,7 +24,7 @@ The documentation content (prose, examples, guides) has no stated license. Witho
 
 The docs license may differ from the software license — that is normal and expected. Resolving this issue and issue 077 together makes sense, since both concern how licensing is communicated in the docs.
 
-See also: [[077-docs-licensing]]
+See also: CR-77
 
 Migrated from plcc-ng #078.
 <!-- SECTION:DESCRIPTION:END -->

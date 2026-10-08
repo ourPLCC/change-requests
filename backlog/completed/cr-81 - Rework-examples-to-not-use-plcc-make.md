@@ -23,7 +23,7 @@ Audit all examples in the docs and replace any direct `plcc-make` invocations wi
 
 Related to issue 074, which addresses the same problem in the quickstart specifically. This issue covers the broader audit of all other examples and pages in the docs.
 
-See also: [[074-docs-simplify-quickstart]]
+See also: CR-74
 
 Migrated from plcc-ng #081.
 <!-- SECTION:DESCRIPTION:END -->

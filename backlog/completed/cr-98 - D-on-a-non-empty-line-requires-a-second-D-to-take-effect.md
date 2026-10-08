@@ -43,7 +43,7 @@ the partial line as data followed by EOF. `plcc-rep` should handle this
 case the same way it handles ^D on an empty line (i.e. process accumulated
 input and return to `>>>` or exit, depending on context).
 
-See also: [[093-incremental-parsing-repl]]
+See also: CR-93
 
 Migrated from plcc-ng #098.
 <!-- SECTION:DESCRIPTION:END -->

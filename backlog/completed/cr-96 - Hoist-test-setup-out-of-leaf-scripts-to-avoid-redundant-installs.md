@@ -31,7 +31,7 @@ The `SKIP_SETUP=1` guard is the safer approach — it does not break existing
 callers of the leaf scripts while letting `functional.bash` skip the redundant
 setup. `functional.bash` sets `SKIP_SETUP=1` before invoking each leaf script.
 
-See also: [[097-test-output-cache]]
+See also: CR-97
 
 Migrated from plcc-ng #096.
 <!-- SECTION:DESCRIPTION:END -->

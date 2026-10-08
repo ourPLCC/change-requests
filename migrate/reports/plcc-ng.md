@@ -36,6 +36,13 @@ Converted 197 files: 180 -> completed/, 17 -> tasks/, 0 -> drafts/.
 
 ## Link findings
 
+- broken issue link: [[091-single-semantic-section]]
+- broken issue link: [[092-language-as-first-line-of-semantics]]
+- broken issue link: [[091-single-semantic-section]]
+- broken issue link: [[087-divider-language-first]]
+- broken issue link: [[090-separator-language-case-sensitive]]
+- broken issue link: [[091-single-semantic-section]]
+- broken issue link: [[092-language-as-first-line-of-semantics]]
 - unresolved link left as is: ../../TEMPLATE.md
 - qualified cross-repo mention (verify): plcc-ng-demo #2 -> CR-802
 - qualified cross-repo mention (verify): plcc-ng-demo #5 -> CR-805

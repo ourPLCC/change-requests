@@ -33,5 +33,5 @@ Migrated from plcc-ng #111.
 ## Final Summary
 
 <!-- SECTION:FINAL_SUMMARY:BEGIN -->
-Abandoned before migration: abandoned — superseded by #124 (drop Mermaid support entirely)
+Abandoned before migration: abandoned — superseded by CR-124 (drop Mermaid support entirely)
 <!-- SECTION:FINAL_SUMMARY:END -->

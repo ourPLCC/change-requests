@@ -76,9 +76,9 @@ that accepted it) is removed.
 - This is a breaking change for any spec file using the old `% Language` or
   `% toolname Language` divider syntax.
 - The `%` divider becomes uniform across all three section boundaries.
-- See also [[089-grammar-to-spec-rename]] for the broader rename of "grammar
+- See also CR-89 for the broader rename of "grammar
   file" to "spec file," which lands alongside this work.
-- See [[094-docs-status-after-initial-branch]] for doc pages that will need
+- See CR-94 for doc pages that will need
   updating once this lands (`language-guide/semantic.md`,
   `cli/orchestrators.md`, `language-guide/examples.md`).
 

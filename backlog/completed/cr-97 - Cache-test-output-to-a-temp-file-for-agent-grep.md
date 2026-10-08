@@ -39,7 +39,7 @@ implicitly invalidated whenever the suite is intentionally re-run via
 - No explicit cache invalidation is needed — re-running the wrapper overwrites
   the file.
 
-See also: [[096-test-setup-deduplication]]
+See also: CR-96
 
 Migrated from plcc-ng #097.
 <!-- SECTION:DESCRIPTION:END -->

@@ -23,7 +23,7 @@ Reclassify `plcc-diagram` as a Level 2 command everywhere it is described — in
 
 Related to issue 082, which reorders Level 2 commands above Level 1 in the docs. Fixing the classification here ensures `plcc-diagram` ends up in the right place once that reordering is done.
 
-See also: [[082-docs-reorder-level1-level2-commands]]
+See also: CR-82
 
 Migrated from plcc-ng #083.
 <!-- SECTION:DESCRIPTION:END -->

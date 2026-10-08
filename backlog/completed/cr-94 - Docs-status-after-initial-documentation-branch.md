@@ -32,8 +32,8 @@ Use this to track what still needs attention.
 ### Pages needing follow-up
 
 - **`cli/orchestrators.md`** — One remaining TODO about how to suppress interactive mode.
-  Will also need updating once issues [[084-no-banner-default]], [[089-grammar-to-spec-rename]],
-  [[091-single-semantic-section]], and [[093-incremental-parsing-repl]] land
+  Will also need updating once issues CR-84, CR-89,
+  [[091-single-semantic-section]], and CR-93 land
   (`--tool` flag removed, `-g` → `-s`, interactive mode behavior changes).
 
 - **`language-guide/examples.md`** — Uses old syntax throughout (`% subtract Python`,

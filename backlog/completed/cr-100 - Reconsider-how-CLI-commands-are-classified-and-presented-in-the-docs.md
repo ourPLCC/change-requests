@@ -126,7 +126,7 @@ wading through individual command pages.
 
 ### Notes
 
-This issue also supersedes the reclassification in [[083-fix-plcc-diagram-misclassified]]
+This issue also supersedes the reclassification in CR-83
 — once the classification scheme itself is resolved, 083 either gets folded in
 or becomes moot.
 
