@@ -1,0 +1,25 @@
+name: check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Unit tests
+        run: |
+          python3 -m unittest discover -s tests -t .
+          python3 -m unittest discover -s migrate/tests -t .
+      - name: Consistency check
+        run: python3 bin/check.py --pre-push
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Backlog.md doctor
+        run: npx --yes "backlog.md@$(cat .backlog-version)" doctor
