@@ -1,7 +1,7 @@
 ---
 id: CR-199
 title: 'Move issue tracking to a central ourPLCC/issues repo using Backlog.md'
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-10-08'
 labels: []

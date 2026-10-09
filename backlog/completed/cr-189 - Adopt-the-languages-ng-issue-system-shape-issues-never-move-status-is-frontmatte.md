@@ -1,10 +1,11 @@
 ---
 id: CR-189
 title: 'Adopt the languages-ng issue-system shape: issues never move, status is frontmatter'
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-08-11'
-labels: []
+labels:
+  - wontdo
 dependencies: []
 type: chore
 project: plcc-ng
@@ -20,7 +21,7 @@ load-bearing.
 
 ### 1. Issues never move; `closed:` is the status
 
-Today a close does `git mv` into issues/done/, so an issue's path
+Today a close does `git mv` into [issues/done/](), so an issue's path
 changes exactly once in its life — and every link written before that
 moment goes stale. Issue
 CR-149 was the one-time cleanup of
@@ -45,7 +46,7 @@ both are structural rather than bugs in the rewriting:
 - **Depth rewrites applied to already-wrong paths** (6 of the 14). CR-150's
   blanket "add one more `../` to anything climbing out of `issues/`" cannot
   tell a correct relative path from an incorrect one. CR-157 was filed with
-  `[issues/TEMPLATE.md](../TEMPLATE.md)` — already wrong by one level — and
+  `[issues/TEMPLATE.md](../../TEMPLATE.md)` — already wrong by one level — and
   the close deepened it to `../../TEMPLATE.md`, still wrong. The five
   `../../src/plcc/cmd/source_runner.py` links in CR-13/#014/#018/#020/#021
   are the same shape from before CR-150 landed.
@@ -174,3 +175,9 @@ systems.
 
 Migrated from plcc-ng #189.
 <!-- SECTION:DESCRIPTION:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Abandoned before migration: superseded by CR-199
+<!-- SECTION:FINAL_SUMMARY:END -->

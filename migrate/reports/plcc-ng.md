@@ -1,6 +1,6 @@
 # plcc-ng migration report
 
-Converted 197 files: 180 -> completed/, 17 -> tasks/, 0 -> drafts/.
+Converted 197 files: 182 -> completed/, 15 -> tasks/, 0 -> drafts/.
 
 ## Duplicate-number remaps
 
@@ -29,6 +29,7 @@ Converted 197 files: 180 -> completed/, 17 -> tasks/, 0 -> drafts/.
 
 - #111 -> CR-111: abandoned — superseded by #124 (drop Mermaid support entirely)
 - #114 -> CR-114: abandoned — not a priority for v1.0; revisit if needed
+- #189 -> CR-189: superseded by #199
 
 ## Drafts (lose their number; provenance line keeps it greppable)
 
@@ -50,6 +51,5 @@ Converted 197 files: 180 -> completed/, 17 -> tasks/, 0 -> drafts/.
 - slug mismatch: link ../165-java-run-void-print-model-inconsistent.md names 165-java-run-void-print-model-inconsistent, but 165 is run-default-bypasses-json-envelope; used CR-165
 - qualified cross-repo mention (verify): languages-ng #4 -> CR-504
 - qualified cross-repo mention (verify): languages-ng #6 -> CR-506
-- link to retired tracker file made plain text: done/
-- link to retired tracker file made plain text: ../issue-conventions.md
-- link to retired tracker file made plain text: ../issue-conventions.md
+- link to retired tracker file made plain text: ../../issue-conventions.md
+- link to retired tracker file made plain text: ../../issue-conventions.md
