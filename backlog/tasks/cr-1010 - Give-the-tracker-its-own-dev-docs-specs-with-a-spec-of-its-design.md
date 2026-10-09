@@ -4,6 +4,7 @@ title: Give the tracker its own dev-docs/specs/ with a spec of its design
 status: To Do
 assignee: []
 created_date: '2026-10-09 13:08'
+updated_date: '2026-10-09 13:15'
 labels: []
 dependencies: []
 references:
@@ -24,4 +25,5 @@ The tracker is a system built on Backlog.md: its own config, ID ranges, lifecycl
 - [ ] #2 The spec gives the reasons for its key decisions and the alternatives that were rejected
 - [ ] #3 The spec describes the system as it stands, not the plan for migrating plcc-ng
 - [ ] #4 README.md points to dev-docs/specs/ and says specs for project change-requests go there
+- [ ] #5 README.md says assignees are GitHub usernames (e.g. @StoneyJackson), and the spec records why
 <!-- AC:END -->
