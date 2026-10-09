@@ -22,6 +22,7 @@ class VerifyTest(unittest.TestCase):
         (issues / "done").mkdir(parents=True)
         (issues / "done" / "010-old.md").write_text("# 010 - Old: thing\n\n**Type:** bug\n**Date:** 2026-01-01\n\n## Description\n\nO.\n")
         (issues / "160-race.md").write_text("# 160 - Race\n\n**Type:** fix\n**Date:** 2026-07-01\n\n## Description\n\nR.\n")
+        (issues / "170-idea.md").write_text("# 170 - Idea\n\n**Type:** feat\n**Date:** 2026-07-02\n\n## Description\n\nI.\n")
         self.tracker.mkdir()
         for name in ("backlog", "bin"):
             shutil.copytree(TRACKER / name, self.tracker / name,
@@ -36,7 +37,8 @@ class VerifyTest(unittest.TestCase):
         subprocess.run(["git", "init", "-q", str(self.tracker)], check=True)
         subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", "-C", str(self.tracker),
                         "commit", "-q", "--allow-empty", "-m", "init"], check=True)
-        self.triage = {"open": {"160": {"as": "cr", "status": "To Do", "reason": "r"}}}
+        self.triage = {"open": {"160": {"as": "cr", "status": "To Do", "reason": "r"},
+                                "170": {"as": "draft", "reason": "r"}}}
         plcc_ng.convert(self.repo, self.tracker, self.triage)
 
     def tearDown(self):
