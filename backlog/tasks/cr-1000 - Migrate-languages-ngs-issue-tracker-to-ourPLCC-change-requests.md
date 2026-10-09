@@ -4,8 +4,9 @@ title: Migrate languages-ng's issue tracker to ourPLCC/change-requests
 status: To Do
 assignee: []
 created_date: '2026-10-09 01:55'
-updated_date: '2026-10-09 02:15'
+updated_date: '2026-10-09 12:35'
 labels: []
+milestone: m-0
 dependencies: []
 references:
   - ../../../plcc-ng/dev-docs/specs/2026-10-08-199-central-tracker-design.md
