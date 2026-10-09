@@ -4,7 +4,7 @@ title: Migrate languages-ng's issue tracker to ourPLCC/change-requests
 status: To Do
 assignee: []
 created_date: '2026-10-09 01:55'
-updated_date: '2026-10-09 12:35'
+updated_date: '2026-10-09 12:36'
 labels: []
 milestone: m-0
 dependencies: []
@@ -34,4 +34,6 @@ Notes for whoever migrates languages-ng:
 - The devcontainer named volume for ~/.claude is called plcc-ng-claude; use a per-repo name (e.g. languages-ng-claude) when copying the devcontainer setup.
 - The containerEnv GIT_CONFIG_* safe.directory entries must name that repo's own path.
 - migrate/ caveats before reuse: plcc_ng.assign_ids hardcodes the 400-499 range guard although offset is a parameter (generalize per repo); _remove_previous matches the provenance prefix anywhere in a file (anchor it to the last line); verify crashes with AttributeError if a migrated file lacks id:; type_overrides keyed by legacy number applies to both files of a duplicate-number pair.
+
+Correction to the _remove_previous caveat above: the provenance line ends the description section (before SECTION:DESCRIPTION:END), not the file. Tracked as CR-1006.
 <!-- SECTION:NOTES:END -->
