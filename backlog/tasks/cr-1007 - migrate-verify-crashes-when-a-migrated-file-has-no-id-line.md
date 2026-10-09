@@ -1,9 +1,11 @@
 ---
 id: CR-1007
 title: 'migrate verify crashes when a migrated file has no id: line'
-status: To Do
-assignee: []
+status: In Progress
+assignee:
+  - '@StoneyJackson'
 created_date: '2026-10-09 12:35'
+updated_date: '2026-10-09 13:15'
 labels: []
 milestone: m-0
 dependencies: []
@@ -19,7 +21,7 @@ project: change-requests
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 A file without an id: line is reported as a verification failure that names the file
+- [ ] #1 A file without an id: line in its frontmatter is reported as a verification failure that names the file
 - [ ] #2 verify exits non-zero in that case and still checks the remaining files
 - [ ] #3 A test covers a task file and a draft file without an id: line
 <!-- AC:END -->
