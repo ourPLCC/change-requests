@@ -1,4 +1,4 @@
-project_name: "ourPLCC issues"
+project_name: "ourPLCC change requests"
 default_status: "To Do"
 statuses: ["To Do", "In Progress", "Done"]
 labels: ["wontdo"]

@@ -16,9 +16,10 @@ plans, cleanup, and drafts.
 ## Setup
 
 - Keep the ourPLCC repos as siblings on your host, with this repo cloned
-  beside them as `issues/`. Each code repo's devcontainer clones it there if
-  missing, bind-mounts it at `/workspaces/issues`, sets
-  `BACKLOG_CWD=/workspaces/issues`, and installs the pinned `backlog` CLI.
+  beside them as `change-requests/`. Each code repo's devcontainer clones it
+  there if missing, bind-mounts it at `/workspaces/change-requests`, sets
+  `BACKLOG_CWD=/workspaces/change-requests`, and installs the pinned
+  `backlog` CLI.
 - Commit inside the container; **push from the host**. Backlog.md commits
   every change automatically (`auto_commit: true`).
 - Hooks in `.githooks/` run `bin/check.py` (Python 3, standard library) on
@@ -30,7 +31,8 @@ plans, cleanup, and drafts.
 
 - **Change request (CR):** committed work in exactly one repo — a feature, a
   fix, or an infrastructure change — with testable acceptance criteria. ID
-  `CR-N`.
+  `CR-N`. Backlog.md stores them in `backlog/tasks/` ("tasks" is the tool's
+  fixed folder name; we call them change requests).
 - **Draft:** an idea we have not committed to. ID `DRAFT-N` (a separate,
   recycled sequence). Not on the board or in `task list`.
 - **GitHub issue:** a conversation with a human on a code repo. Not tracked
@@ -102,7 +104,7 @@ dependency as satisfied, so review the CRs that depended on it.
 - **Demote** (`backlog task demote CR-N`) only when nothing cites the CR:
 
   ```bash
-  grep -rn 'CR-N\b' /workspaces/issues/backlog /workspaces/<repo> --include='*.md'
+  grep -rn 'CR-N\b' /workspaces/change-requests/backlog /workspaces/<repo> --include='*.md'
   git -C /workspaces/<repo> log --all --oneline -i --grep 'cr-N\b'
   ```
 
