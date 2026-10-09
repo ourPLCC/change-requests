@@ -125,7 +125,8 @@ A CR's type is the conventional-commit type of the change that decides its
 version impact; its branch may carry other commit types too.
 
 Every CR has exactly one `project`: `plcc-ng`, `languages-ng`, `plcc-ng-demo`,
-`plcc-ng-devcontainer`, or `course-materials-ng`. Work spanning repos is one
+`plcc-ng-devcontainer`, `course-materials-ng`, or `change-requests` (this
+tracker: its config, checks, CI, and migration tooling). Work spanning repos is one
 CR per repo linked with `--dep` (no umbrella CRs); `backlog task list --ready`
 hides a CR until its dependencies are done.
 
