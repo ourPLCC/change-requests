@@ -12,6 +12,7 @@ references:
   - ../../../plcc-ng/dev-docs/specs/2026-10-08-199-central-tracker-design.md
 type: docs
 project: change-requests
+ordinal: 1000
 ---
 
 ## Description
