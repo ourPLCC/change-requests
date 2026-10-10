@@ -1,11 +1,11 @@
 ---
 id: CR-1014
 title: Adopt the org developer docs and the renamed dev repo
-status: In Progress
+status: Done
 assignee:
   - '@StoneyJackson'
 created_date: '2026-10-10 18:34'
-updated_date: '2026-10-10 20:44'
+updated_date: '2026-10-10 20:47'
 labels: []
 milestone: m-0
 dependencies:
@@ -40,3 +40,9 @@ Found during implementation: in a worktree under .worktrees/<name>/, AGENTS.md's
 
 Triage (with Stoney): both notes dropped. The worktree import gap has no effect today; the claude -p behavior is documented in CONTRIBUTING.md.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Replaced CLAUDE.md with AGENTS.md importing the org guide, rewrote CONTRIBUTING.md to build on it, and moved the devcontainer to ../dev (plcc-ng#333). Fixed the AGENTS.md imports, which never loaded because of trailing commas and a missing approval for outside imports, and made the devcontainer approve them on creation via bin/install/claude-imports.bash (plcc-ng#334). Corrected the org design spec and dev's own AGENTS.md to match (dev#4). Verified by a rebuild: backlog works, /memory lists both org files, and a fresh VS Code session quoted ORG-AGENTS.md without reading it.
+<!-- SECTION:FINAL_SUMMARY:END -->
