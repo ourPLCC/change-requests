@@ -4,14 +4,14 @@ title: Document the spec supersession convention
 status: To Do
 assignee: []
 created_date: '2026-10-10 16:18'
-updated_date: '2026-10-10 18:34'
+updated_date: '2026-10-10 19:14'
 labels: []
 dependencies:
   - CR-1012
 references:
   - ../../dev-docs/specs/2026-10-10-org-developer-docs-design.md
 type: docs
-project: change-requests
+project: dev
 ordinal: 2000
 ---
 
