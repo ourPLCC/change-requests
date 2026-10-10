@@ -12,6 +12,7 @@ references:
   - ../../dev-docs/specs/2026-10-10-org-developer-docs-design.md
 type: docs
 project: change-requests
+ordinal: 2000
 ---
 
 ## Description
