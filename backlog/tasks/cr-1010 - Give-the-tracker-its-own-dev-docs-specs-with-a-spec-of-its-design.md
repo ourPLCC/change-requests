@@ -4,9 +4,10 @@ title: Give the tracker its own dev-docs/specs/ with a spec of its design
 status: To Do
 assignee: []
 created_date: '2026-10-09 13:08'
-updated_date: '2026-10-09 13:15'
+updated_date: '2026-10-10 18:34'
 labels: []
-dependencies: []
+dependencies:
+  - CR-1012
 references:
   - ../../../plcc-ng/dev-docs/specs/2026-10-08-199-central-tracker-design.md
 type: docs
