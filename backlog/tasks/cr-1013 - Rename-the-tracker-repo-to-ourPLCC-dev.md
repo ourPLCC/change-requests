@@ -13,7 +13,7 @@ references:
   - ../../dev-docs/specs/2026-10-10-org-developer-docs-design.md
 type: chore
 project: change-requests
-ordinal: 500
+ordinal: 3000
 ---
 
 ## Description
