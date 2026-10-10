@@ -3,7 +3,7 @@ default_status: "To Do"
 statuses: ["To Do", "In Progress", "Done"]
 labels: ["wontdo"]
 types: ["fix", "feat", "docs", "test", "refactor", "chore"]
-projects: ["plcc-ng", "languages-ng", "plcc-ng-demo", "plcc-ng-devcontainer", "course-materials-ng", "change-requests", "dev"]
+projects: ["plcc-ng", "languages-ng", "plcc-ng-demo", "plcc-ng-devcontainer", "course-materials-ng", "dev"]
 date_format: yyyy-mm-dd
 max_column_width: 20
 auto_open_browser: true
