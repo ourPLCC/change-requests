@@ -4,9 +4,11 @@ title: Set up plcc-ng-devcontainer to use the central tracker
 status: To Do
 assignee: []
 created_date: '2026-10-09 12:36'
+updated_date: '2026-10-10 18:34'
 labels: []
 milestone: m-0
-dependencies: []
+dependencies:
+  - CR-1013
 references:
   - ../../../plcc-ng/dev-docs/specs/2026-10-08-199-central-tracker-design.md
 type: chore
