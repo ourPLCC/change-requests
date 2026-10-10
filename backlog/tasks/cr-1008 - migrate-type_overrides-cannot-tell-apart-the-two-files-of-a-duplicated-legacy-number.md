@@ -3,10 +3,11 @@ id: CR-1008
 title: >-
   migrate type_overrides cannot tell apart the two files of a duplicated legacy
   number
-status: To Do
-assignee: []
+status: In Progress
+assignee:
+  - '@StoneyJackson'
 created_date: '2026-10-09 12:35'
-updated_date: '2026-10-10 19:14'
+updated_date: '2026-10-10 22:59'
 labels: []
 milestone: m-0
 dependencies: []
@@ -26,4 +27,5 @@ ordinal: 4000
 - [ ] #1 A type override can target one file of a duplicated legacy number without affecting the other
 - [ ] #2 Overrides keyed by a plain number keep working for numbers that are not duplicated
 - [ ] #3 A test covers an override applied to only one file of a duplicate pair
+- [ ] #4 An open-issue triage entry can target one file of a duplicated legacy number
 <!-- AC:END -->
