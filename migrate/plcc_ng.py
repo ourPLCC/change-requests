@@ -16,6 +16,7 @@ from migrate.links import IssueRef, LinkContext, rewrite_issue_body
 PROJECT = "plcc-ng"
 OFFSET = 0
 DUP_OFFSET = 400
+DUP_RANGE = range(400, 500)
 OTHER_OFFSETS = {"languages-ng": 500, "plcc-ng-demo": 800}
 GITHUB = "https://github.com/ourPLCC/plcc-ng"
 PROVENANCE_PREFIX = f"Migrated from {PROJECT} #"
@@ -30,7 +31,7 @@ def load_issues(repo_root):
     return sorted(issues, key=lambda i: (i.number, posixpath.basename(i.rel_path)))
 
 
-def assign_ids(issues, offset=OFFSET):
+def assign_ids(issues, offset=OFFSET, dup_offset=DUP_OFFSET, dup_range=DUP_RANGE):
     by_number = {}
     for issue in issues:
         by_number.setdefault(issue.number, []).append(issue)
@@ -40,10 +41,10 @@ def assign_ids(issues, offset=OFFSET):
             raise SystemExit(f"#{number:03d} is used by {len(group)} files; extend the remap rule")
         ids[group[0].rel_path] = number + offset
         if len(group) == 2:
-            cr = number + offset + DUP_OFFSET
-            if not 400 <= cr <= 499:
-                raise SystemExit(f"duplicate #{number:03d} remaps to CR-{cr}, outside the "
-                                 f"reserved CR-400..CR-499 range (500+ is languages-ng)")
+            cr = number + offset + dup_offset
+            if cr not in dup_range:
+                raise SystemExit(f"duplicate #{number:03d} remaps to CR-{cr}, outside the reserved "
+                                 f"CR-{dup_range.start}..CR-{dup_range.stop - 1} range")
             ids[group[1].rel_path] = cr
             remaps.append(f"#{number:03d} {group[1].slug} -> CR-{cr} "
                           f"(#{number:03d} {group[0].slug} keeps CR-{number + offset})")
