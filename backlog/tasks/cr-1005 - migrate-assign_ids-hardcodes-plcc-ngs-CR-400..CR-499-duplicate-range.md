@@ -1,10 +1,11 @@
 ---
 id: CR-1005
 title: migrate assign_ids hardcodes plcc-ng's CR-400..CR-499 duplicate range
-status: To Do
-assignee: []
+status: In Progress
+assignee:
+  - '@StoneyJackson'
 created_date: '2026-10-09 12:35'
-updated_date: '2026-10-10 19:14'
+updated_date: '2026-10-10 20:51'
 labels: []
 milestone: m-0
 dependencies: []
