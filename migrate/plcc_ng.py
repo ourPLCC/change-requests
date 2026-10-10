@@ -61,29 +61,53 @@ def build_refs(issues, ids):
     return refs
 
 
-def _placement(issue, triage):
+def _stem(issue):
+    return f"{issue.number:03d}-{issue.slug}"
+
+
+def _duplicated(issues):
+    numbers = [issue.number for issue in issues]
+    return {number for number in numbers if numbers.count(number) > 1}
+
+
+def _triage_entry(table, issue, duplicated):
+    """The entry keyed by the issue's file stem, else by its number unless that is duplicated."""
+    if _stem(issue) in table:
+        return table[_stem(issue)]
+    return None if issue.number in duplicated else table.get(str(issue.number))
+
+
+def _placement(issue, triage, duplicated):
     if issue.closed:
         return "completed"
-    return "drafts" if triage["open"][str(issue.number)]["as"] == "draft" else "tasks"
+    entry = _triage_entry(triage["open"], issue, duplicated)
+    return "drafts" if entry["as"] == "draft" else "tasks"
 
 
 def expected_counts(issues, triage):
+    duplicated = _duplicated(issues)
     counts = {folder: 0 for folder in FOLDERS}
     for issue in issues:
-        counts[_placement(issue, triage)] += 1
+        counts[_placement(issue, triage, duplicated)] += 1
     return counts
 
 
 def _validate(issues, triage):
     errors = []
+    duplicated = _duplicated(issues)
     open_triage = triage.get("open", {})
     overrides = triage.get("type_overrides", {})
+    for name, table in (("open", open_triage), ("type_overrides", overrides)):
+        for number in sorted(duplicated):
+            if str(number) in table:
+                stems = ", ".join(_stem(i) for i in issues if i.number == number)
+                errors.append(f"{name} key {str(number)!r} is ambiguous; key by file stem ({stems})")
     for issue in issues:
         if not issue.closed:
-            entry = open_triage.get(str(issue.number))
+            entry = _triage_entry(open_triage, issue, duplicated)
             if not entry or entry.get("as") not in ("cr", "draft"):
                 errors.append(f"#{issue.number:03d} is open but has no valid triage entry")
-        mapped = overrides.get(str(issue.number)) or TYPE_MAP.get(issue.type)
+        mapped = _triage_entry(overrides, issue, duplicated) or TYPE_MAP.get(issue.type)
         if mapped not in CORE_TYPES:
             errors.append(f"#{issue.number:03d} has type {issue.type!r}; add a type_overrides entry")
     if errors:
@@ -107,14 +131,15 @@ def convert(repo_root, tracker_root, triage):
     issues = load_issues(repo_root)
     _validate(issues, triage)
     ids, remaps = assign_ids(issues)
+    duplicated = _duplicated(issues)
     ctx = LinkContext(PROJECT, repo_root, build_refs(issues, ids), OTHER_OFFSETS, GITHUB)
     overrides = triage.get("type_overrides", {})
     _remove_previous(backlog)
 
     type_notes, wontdo, drafts, draft_number = [], [], [], 0
     for issue in issues:
-        folder = _placement(issue, triage)
-        cr_type = overrides.get(str(issue.number)) or TYPE_MAP[issue.type]
+        folder = _placement(issue, triage, duplicated)
+        cr_type = _triage_entry(overrides, issue, duplicated) or TYPE_MAP[issue.type]
         if cr_type != issue.type:
             type_notes.append(f"#{issue.number:03d}: {issue.type!r} -> {cr_type}")
         labels, final_summary, status = [], None, "To Do"
@@ -131,7 +156,7 @@ def convert(repo_root, tracker_root, triage):
             drafts.append(f"#{issue.number:03d} -> {task_id}: {issue.title}")
         else:
             task_id = f"CR-{ids[issue.rel_path]}"
-            status = triage["open"][str(issue.number)].get("status", "To Do")
+            status = _triage_entry(triage["open"], issue, duplicated).get("status", "To Do")
         body = rewrite_issue_body(assemble_description(issue), posixpath.dirname(issue.rel_path), ctx)
         description = f"{body}\n\n{PROVENANCE_PREFIX}{issue.number:03d}."
         text = render_task(task_id=task_id, title=issue.title, status=status, created=issue.date,

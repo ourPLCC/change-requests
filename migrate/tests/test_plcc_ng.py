@@ -112,6 +112,41 @@ class ConvertTest(unittest.TestCase):
         plcc_ng.convert(self.repo, self.tracker, self.triage)
         self.assertIn("cr-50 - W.md", self.files("completed"))
 
+    def test_type_override_by_stem_targets_one_duplicate(self):
+        self.triage["type_overrides"] = {"035-plcc-diagram-hangs": "chore"}
+        plcc_ng.convert(self.repo, self.tracker, self.triage)
+        completed = self.tracker / "backlog" / "completed"
+        self.assertIn("type: chore", (completed / "cr-35 - Diagram-hangs.md").read_text())
+        self.assertIn("type: feat", (completed / "cr-435 - Emitter-blocks.md").read_text())
+
+    def test_number_key_for_duplicated_number_is_an_error(self):
+        self.triage["type_overrides"] = {"35": "chore"}
+        with self.assertRaises(SystemExit) as cm:
+            plcc_ng.convert(self.repo, self.tracker, self.triage)
+        self.assertIn("035-plcc-diagram-hangs", str(cm.exception))
+
+    def add_open_duplicates(self):
+        issues = self.repo / "dev-docs" / "issues"
+        (issues / "070-alpha.md").write_text(legacy(70, "Alpha"))
+        (issues / "070-beta.md").write_text(legacy(70, "Beta"))
+
+    def test_open_entry_by_stem_targets_one_duplicate(self):
+        self.add_open_duplicates()
+        self.triage["open"].update({"070-alpha": {"as": "cr", "status": "In Progress", "reason": "r"},
+                                    "070-beta": {"as": "draft", "reason": "r"}})
+        plcc_ng.convert(self.repo, self.tracker, self.triage)
+        self.assertEqual(self.files("tasks"), ["cr-160 - Race.md", "cr-70 - Alpha.md"])
+        self.assertEqual(self.files("drafts"), ["draft-1 - Beta.md", "draft-2 - Rename.md"])
+        alpha = (self.tracker / "backlog" / "tasks" / "cr-70 - Alpha.md").read_text()
+        self.assertIn("status: In Progress", alpha)
+
+    def test_open_number_key_for_duplicated_number_is_an_error(self):
+        self.add_open_duplicates()
+        self.triage["open"]["70"] = {"as": "cr", "reason": "r"}
+        with self.assertRaises(SystemExit) as cm:
+            plcc_ng.convert(self.repo, self.tracker, self.triage)
+        self.assertIn("070-alpha", str(cm.exception))
+
     def test_rerun_replaces_previous_output_only(self):
         plcc_ng.convert(self.repo, self.tracker, self.triage)
         other = self.tracker / "backlog" / "tasks" / "cr-1000 - New.md"
