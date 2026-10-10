@@ -1,9 +1,11 @@
 ---
 id: CR-1012
 title: Restructure the tracker repo into the org developer-docs layout
-status: To Do
-assignee: []
+status: In Progress
+assignee:
+  - '@StoneyJackson'
 created_date: '2026-10-10 18:33'
+updated_date: '2026-10-10 18:53'
 labels: []
 milestone: m-0
 dependencies: []
