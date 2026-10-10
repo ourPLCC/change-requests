@@ -4,10 +4,14 @@ title: Document the spec supersession convention
 status: To Do
 assignee: []
 created_date: '2026-10-10 16:18'
+updated_date: '2026-10-10 18:34'
 labels: []
-dependencies: []
+dependencies:
+  - CR-1012
+references:
+  - ../../dev-docs/specs/2026-10-10-org-developer-docs-design.md
 type: docs
-project: plcc-ng
+project: change-requests
 ---
 
 ## Description
@@ -24,5 +28,5 @@ This convention is meant to apply across all ourPLCC repos. Where org-wide polic
 <!-- AC:BEGIN -->
 - [ ] #1 The documentation contributors read for spec guidance states that a merged spec is not edited; specs change only on their own branch during implementation
 - [ ] #2 It states that a newer spec lists each spec it overrides in a `## Supersedes` section, linking the spec and stating the scope (entirely, or which parts)
-- [ ] #3 It states that specs do not carry forward "superseded by" links, and tells readers to search dev-docs/specs for a spec's filename to find anything that supersedes it
+- [ ] #3 It states that specs do not carry forward "superseded by" links, and tells readers to search both the repo's and the org's dev-docs/specs/ for a spec's filename to find anything that supersedes it
 <!-- AC:END -->
