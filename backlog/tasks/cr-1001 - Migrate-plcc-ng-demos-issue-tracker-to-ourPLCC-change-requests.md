@@ -4,7 +4,7 @@ title: Migrate plcc-ng-demo's issue tracker to ourPLCC/dev
 status: To Do
 assignee: []
 created_date: '2026-10-09 01:55'
-updated_date: '2026-10-10 19:25'
+updated_date: '2026-10-10 20:55'
 labels: []
 milestone: m-0
 dependencies:
@@ -32,3 +32,9 @@ plcc-ng-demo keeps a 5-issue copy of the old plcc-ng tracker. Design: plcc-ng de
 - [ ] #1 Legacy issues converted at offset +800 (CR-8xx)
 - [ ] #2 plcc-ng-demo's devcontainer, AGENTS.md, and CONTRIBUTING.md follow plcc-ng's layout: the devcontainer clones and mounts ../dev at /workspaces/dev with BACKLOG_CWD set, AGENTS.md imports ../dev/ORG-AGENTS.md, ../dev/CONTRIBUTING.md, then CONTRIBUTING.md, and CONTRIBUTING.md opens with the link to the org developer guide; its old tracker is removed
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+From CR-1005: assign_ids now takes dup_offset and dup_range. The ID table reserves no duplicate-number range for plcc-ng-demo; if its legacy numbers repeat, pick a range inside CR-801..CR-899 and record it in dev-docs/tracker.md.
+<!-- SECTION:NOTES:END -->
