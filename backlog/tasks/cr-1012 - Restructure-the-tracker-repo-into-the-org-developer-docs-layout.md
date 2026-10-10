@@ -1,0 +1,30 @@
+---
+id: CR-1012
+title: Restructure the tracker repo into the org developer-docs layout
+status: To Do
+assignee: []
+created_date: '2026-10-10 18:33'
+labels: []
+milestone: m-0
+dependencies: []
+references:
+  - ../../dev-docs/specs/2026-10-10-org-developer-docs-design.md
+type: docs
+project: change-requests
+---
+
+## Description
+
+<!-- SECTION:DESCRIPTION:BEGIN -->
+Material that applies to every ourPLCC repo has no home. Workflow rules are restated in each repo's CONTRIBUTING.md and CLAUDE.md and in this repo's README, and the copies drift; a decision binding several repos has nowhere to go; a new repo starts by copying another's docs. This repo is already cloned beside every code repo and mounted in every devcontainer, and its README already carries workflow policy beyond tracker mechanics, so it becomes the home of the org developer guide, org-wide specs, and agent rules, alongside the tracker.
+<!-- SECTION:DESCRIPTION:END -->
+
+## Acceptance Criteria
+<!-- AC:BEGIN -->
+- [ ] #1 README.md says what the repo is and sends readers to CONTRIBUTING.md
+- [ ] #2 CONTRIBUTING.md is the org developer guide: how work flows from issue to merged PR, branch naming, commit style, the precedence rule (repos deviate only explicitly and with a reason), and a short summary of tracking that links to dev-docs/tracker.md
+- [ ] #3 AGENTS.md holds only agent-specific rules, opening with the test for what belongs there versus CONTRIBUTING.md or dev-docs/, then agent mechanics and limits on autonomy
+- [ ] #4 dev-docs/tracker.md holds the tracker-specific content of the old README, including notes on working on the tracker tooling; nothing in the old README is lost
+- [ ] #5 dev-docs/specs/ holds the org developer docs design spec
+- [ ] #6 bin/check.py and CI pass
+<!-- AC:END -->
