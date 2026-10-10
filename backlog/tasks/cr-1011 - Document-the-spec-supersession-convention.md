@@ -21,7 +21,7 @@ Design decisions live in specs and are found by searching them, but nothing writ
 
 The agreed convention: a merged spec is frozen (it may change only on its own branch, during implementation); a newer spec declares what it overrides in a `## Supersedes` section that links each older spec and states the scope (entirely, or which parts); there are no forward "superseded by" links, and readers find superseding specs by searching for the older spec's filename.
 
-This convention is meant to apply across all ourPLCC repos. Where org-wide policy lives is still being decided, so this CR may move to another project once that is settled.
+The convention applies across all ourPLCC repos, so it belongs in the org developer guide.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
