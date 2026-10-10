@@ -5,6 +5,7 @@ Usage: python3 -m migrate.plcc_ng --repo PLCC_NG --tracker ISSUES --triage FILE 
 import argparse
 import json
 import posixpath
+import re
 import sys
 from pathlib import Path
 
@@ -20,6 +21,8 @@ DUP_RANGE = range(400, 500)
 OTHER_OFFSETS = {"languages-ng": 500, "plcc-ng-demo": 800}
 GITHUB = "https://github.com/ourPLCC/plcc-ng"
 PROVENANCE_PREFIX = f"Migrated from {PROJECT} #"
+PROVENANCE_END_RE = re.compile(
+    rf"^{re.escape(PROVENANCE_PREFIX)}\d+\.\n<!-- SECTION:DESCRIPTION:END -->$", re.MULTILINE)
 FOLDERS = ("tasks", "completed", "drafts")
 
 
@@ -90,7 +93,7 @@ def _validate(issues, triage):
 def _remove_previous(backlog):
     for folder in FOLDERS:
         for path in (backlog / folder).glob("*.md"):
-            if PROVENANCE_PREFIX in path.read_text(encoding="utf-8"):
+            if PROVENANCE_END_RE.search(path.read_text(encoding="utf-8")):
                 path.unlink()
 
 
