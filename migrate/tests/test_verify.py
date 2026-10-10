@@ -11,6 +11,7 @@ from pathlib import Path
 from unittest import mock
 
 from migrate import plcc_ng, verify
+from migrate.emit import render_task
 
 TRACKER = Path(__file__).resolve().parents[2]
 HAS_BACKLOG = shutil.which("backlog") is not None
@@ -84,6 +85,13 @@ class VerifyTest(unittest.TestCase):
                                   "--triage", str(triage)])
         self.assertEqual(status, 1)
         self.assertIn(f"{task}: no id: line in frontmatter", stderr.getvalue())
+
+    def test_verify_ignores_cr_that_quotes_provenance_line(self):
+        description = "Migrated from plcc-ng #160.\n\nCR-160 ends with that line."
+        (self.tracker / "backlog" / "tasks" / "cr-1000 - Quote.md").write_text(
+            render_task(task_id="CR-1000", title="Quote", status="To Do", created="2026-10-10",
+                        labels=[], description=description, type_="chore", project="dev"))
+        self.assertEqual(verify.verify(self.repo, self.tracker, self.triage), [])
 
     def test_verify_ignores_ambient_backlog_cwd(self):
         decoy = Path(self._tmp.name) / "decoy"
