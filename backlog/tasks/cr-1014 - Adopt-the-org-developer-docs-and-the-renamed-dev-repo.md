@@ -1,10 +1,11 @@
 ---
 id: CR-1014
 title: Adopt the org developer docs and the renamed dev repo
-status: To Do
-assignee: []
+status: In Progress
+assignee:
+  - '@StoneyJackson'
 created_date: '2026-10-10 18:34'
-updated_date: '2026-10-10 19:25'
+updated_date: '2026-10-10 19:28'
 labels: []
 milestone: m-0
 dependencies:
