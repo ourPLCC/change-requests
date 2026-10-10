@@ -25,7 +25,7 @@ Material that applies to every ourPLCC repo has no home. Workflow rules are rest
 <!-- AC:BEGIN -->
 - [ ] #1 README.md says what the repo is and sends readers to CONTRIBUTING.md
 - [ ] #2 CONTRIBUTING.md is the org developer guide: how work flows from issue to merged PR, branch naming, commit style, the precedence rule (repos deviate only explicitly and with a reason), and a short summary of tracking that links to dev-docs/tracker.md
-- [ ] #3 AGENTS.md holds only agent-specific rules, opening with the test for what belongs there versus CONTRIBUTING.md or dev-docs/, then agent mechanics and limits on autonomy
+- [ ] #3 ORG-AGENTS.md holds only agent-specific rules for every ourPLCC repo, opening with the test for what belongs there versus CONTRIBUTING.md or dev-docs/, then agent mechanics and limits on autonomy; AGENTS.md loads ORG-AGENTS.md, CONTRIBUTING.md, and dev-docs/tracker.md
 - [ ] #4 dev-docs/tracker.md holds the tracker-specific content of the old README, including notes on working on the tracker tooling; nothing in the old README is lost
 - [ ] #5 dev-docs/specs/ holds the org developer docs design spec
 - [ ] #6 bin/check.py and CI pass
