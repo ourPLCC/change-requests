@@ -15,6 +15,13 @@ from migrate.plcc_ng import FOLDERS, PROVENANCE_PREFIX, expected_counts, load_is
 ID_RE = re.compile(r"^id: (\S+)$", re.MULTILINE)
 
 
+def _frontmatter_id(text):
+    """Return the id from the frontmatter, or None."""
+    match = re.match(r"---\n(.*?)\n---\n", text, re.DOTALL)
+    found = match and ID_RE.search(match.group(1))
+    return found.group(1) if found else None
+
+
 def _backlog(tracker_root, *args):
     env = dict(os.environ, BACKLOG_CWD=str(tracker_root))
     return subprocess.run(["backlog", *args], cwd=tracker_root, env=env,
@@ -36,14 +43,20 @@ def verify(repo_root, tracker_root, triage):
         errors.append("seed CR-999 missing from completed/")
 
     for path in migrated["tasks"] + migrated["completed"]:
-        task_id = ID_RE.search(path.read_text(encoding="utf-8")).group(1)
+        task_id = _frontmatter_id(path.read_text(encoding="utf-8"))
+        if task_id is None:
+            errors.append(f"{path.parent.name}/{path.name}: no id: line in frontmatter")
+            continue
         result = _backlog(tracker_root, "task", "view", task_id, "--plain")
         if result.returncode != 0 or f"Task {task_id} " not in result.stdout:
             errors.append(f"backlog cannot view {task_id} ({path.name})")
     if migrated["drafts"]:
         listing = _backlog(tracker_root, "draft", "list", "--plain").stdout
         for path in migrated["drafts"]:
-            draft_id = ID_RE.search(path.read_text(encoding="utf-8")).group(1)
+            draft_id = _frontmatter_id(path.read_text(encoding="utf-8"))
+            if draft_id is None:
+                errors.append(f"{path.parent.name}/{path.name}: no id: line in frontmatter")
+                continue
             if draft_id not in listing:
                 errors.append(f"backlog draft list does not show {draft_id}")
 

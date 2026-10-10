@@ -1,4 +1,8 @@
+import contextlib
+import io
+import json
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -22,6 +26,7 @@ class VerifyTest(unittest.TestCase):
         (issues / "done").mkdir(parents=True)
         (issues / "done" / "010-old.md").write_text("# 010 - Old: thing\n\n**Type:** bug\n**Date:** 2026-01-01\n\n## Description\n\nO.\n")
         (issues / "160-race.md").write_text("# 160 - Race\n\n**Type:** fix\n**Date:** 2026-07-01\n\n## Description\n\nR.\n")
+        (issues / "170-idea.md").write_text("# 170 - Idea\n\n**Type:** feat\n**Date:** 2026-07-02\n\n## Description\n\nI.\n")
         self.tracker.mkdir()
         for name in ("backlog", "bin"):
             shutil.copytree(TRACKER / name, self.tracker / name,
@@ -36,7 +41,8 @@ class VerifyTest(unittest.TestCase):
         subprocess.run(["git", "init", "-q", str(self.tracker)], check=True)
         subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", "-C", str(self.tracker),
                         "commit", "-q", "--allow-empty", "-m", "init"], check=True)
-        self.triage = {"open": {"160": {"as": "cr", "status": "To Do", "reason": "r"}}}
+        self.triage = {"open": {"160": {"as": "cr", "status": "To Do", "reason": "r"},
+                                "170": {"as": "draft", "reason": "r"}}}
         plcc_ng.convert(self.repo, self.tracker, self.triage)
 
     def tearDown(self):
@@ -48,6 +54,36 @@ class VerifyTest(unittest.TestCase):
     def test_verify_detects_missing_file(self):
         next((self.tracker / "backlog" / "completed").glob("cr-10 *")).unlink()
         self.assertTrue(any("completed" in e for e in verify.verify(self.repo, self.tracker, self.triage)))
+
+    def _drop_id(self, folder, prefix):
+        path = next((self.tracker / "backlog" / folder).glob(f"{prefix} *"))
+        path.write_text(re.sub(r"^id: .*\n", "", path.read_text(), count=1, flags=re.MULTILINE))
+        return f"{folder}/{path.name}"
+
+    def test_verify_reports_files_without_id(self):
+        task = self._drop_id("tasks", "cr-160")
+        draft = self._drop_id("drafts", "draft-1")
+        errors = verify.verify(self.repo, self.tracker, self.triage)
+        self.assertIn(f"{task}: no id: line in frontmatter", errors)
+        self.assertIn(f"{draft}: no id: line in frontmatter", errors)
+
+    def test_verify_ignores_id_line_outside_frontmatter(self):
+        task = self._drop_id("tasks", "cr-160")
+        path = self.tracker / "backlog" / task
+        path.write_text(path.read_text() + "\nid: CR-160\n")
+        errors = verify.verify(self.repo, self.tracker, self.triage)
+        self.assertIn(f"{task}: no id: line in frontmatter", errors)
+
+    def test_main_exits_nonzero_on_missing_id(self):
+        task = self._drop_id("tasks", "cr-160")
+        triage = Path(self._tmp.name) / "triage.json"
+        triage.write_text(json.dumps(self.triage))
+        stderr = io.StringIO()
+        with contextlib.redirect_stderr(stderr):
+            status = verify.main(["--repo", str(self.repo), "--tracker", str(self.tracker),
+                                  "--triage", str(triage)])
+        self.assertEqual(status, 1)
+        self.assertIn(f"{task}: no id: line in frontmatter", stderr.getvalue())
 
     def test_verify_ignores_ambient_backlog_cwd(self):
         decoy = Path(self._tmp.name) / "decoy"
