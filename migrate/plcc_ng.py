@@ -62,7 +62,7 @@ def build_refs(issues, ids):
 
 
 def _stem(issue):
-    return f"{issue.number:03d}-{issue.slug}"
+    return posixpath.splitext(posixpath.basename(issue.rel_path))[0]
 
 
 def _duplicated(issues):

@@ -140,6 +140,15 @@ class ConvertTest(unittest.TestCase):
         alpha = (self.tracker / "backlog" / "tasks" / "cr-70 - Alpha.md").read_text()
         self.assertIn("status: In Progress", alpha)
 
+    def test_stem_key_is_the_actual_filename_stem(self):
+        issues = self.repo / "dev-docs" / "issues"
+        (issues / "70-alpha.md").write_text(legacy(70, "Alpha"))
+        (issues / "70-beta.md").write_text(legacy(70, "Beta"))
+        self.triage["open"].update({"70-alpha": {"as": "cr", "reason": "r"},
+                                    "70-beta": {"as": "draft", "reason": "r"}})
+        plcc_ng.convert(self.repo, self.tracker, self.triage)
+        self.assertEqual(self.files("tasks"), ["cr-160 - Race.md", "cr-70 - Alpha.md"])
+
     def test_open_number_key_for_duplicated_number_is_an_error(self):
         self.add_open_duplicates()
         self.triage["open"]["70"] = {"as": "cr", "reason": "r"}
