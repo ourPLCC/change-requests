@@ -4,7 +4,7 @@ title: Migrate languages-ng's issue tracker to ourPLCC/dev
 status: To Do
 assignee: []
 created_date: '2026-10-09 01:55'
-updated_date: '2026-10-10 19:25'
+updated_date: '2026-10-10 20:55'
 labels: []
 milestone: m-0
 dependencies:
@@ -43,4 +43,6 @@ Notes for whoever migrates languages-ng:
 - migrate/ caveats before reuse: plcc_ng.assign_ids hardcodes the 400-499 range guard although offset is a parameter (generalize per repo); _remove_previous matches the provenance prefix anywhere in a file (anchor it to the last line); verify crashes with AttributeError if a migrated file lacks id:; type_overrides keyed by legacy number applies to both files of a duplicate-number pair.
 
 Correction to the _remove_previous caveat above: the provenance line ends the description section (before SECTION:DESCRIPTION:END), not the file. Tracked as CR-1006.
+
+From CR-1005: assign_ids now takes dup_offset and dup_range. The ID table reserves no duplicate-number range for languages-ng; if its legacy numbers repeat, pick a range inside CR-501..CR-699 and record it in dev-docs/tracker.md.
 <!-- SECTION:NOTES:END -->
