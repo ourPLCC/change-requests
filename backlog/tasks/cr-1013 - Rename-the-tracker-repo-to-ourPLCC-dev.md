@@ -1,10 +1,11 @@
 ---
 id: CR-1013
 title: Rename the tracker repo to ourPLCC/dev
-status: To Do
-assignee: []
+status: In Progress
+assignee:
+  - '@StoneyJackson'
 created_date: '2026-10-10 18:33'
-updated_date: '2026-10-10 18:34'
+updated_date: '2026-10-10 19:13'
 labels: []
 milestone: m-0
 dependencies:
