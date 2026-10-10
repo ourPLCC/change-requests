@@ -4,7 +4,7 @@ title: Set up plcc-ng-devcontainer to use the central tracker
 status: To Do
 assignee: []
 created_date: '2026-10-09 12:36'
-updated_date: '2026-10-10 18:34'
+updated_date: '2026-10-10 19:15'
 labels: []
 milestone: m-0
 dependencies:
@@ -25,7 +25,7 @@ Carry over from plcc-ng: give the ~/.claude named volume a per-repo name (not pl
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 The devcontainer clones the tracker beside the repo if missing, bind-mounts it at /workspaces/change-requests, sets BACKLOG_CWD, and installs the backlog version pinned in .backlog-version
+- [ ] #1 The devcontainer clones the tracker beside the repo if missing, bind-mounts it at /workspaces/dev, sets BACKLOG_CWD, and installs the backlog version pinned in .backlog-version
 - [ ] #2 Creating the container fails loudly if git refuses the repo or the tracker (dubious ownership)
 - [ ] #3 After a rebuild on the host, backlog task list --project plcc-ng-devcontainer --plain works inside the container
 - [ ] #4 CLAUDE.md and contributing docs point to the tracker README for tracking work

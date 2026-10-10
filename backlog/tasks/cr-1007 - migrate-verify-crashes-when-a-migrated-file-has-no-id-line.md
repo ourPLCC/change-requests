@@ -5,12 +5,12 @@ status: Done
 assignee:
   - '@StoneyJackson'
 created_date: '2026-10-09 12:35'
-updated_date: '2026-10-10 18:14'
+updated_date: '2026-10-10 19:14'
 labels: []
 milestone: m-0
 dependencies: []
 type: chore
-project: change-requests
+project: dev
 ---
 
 ## Description

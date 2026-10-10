@@ -5,14 +5,14 @@ status: Done
 assignee:
   - '@StoneyJackson'
 created_date: '2026-10-10 18:33'
-updated_date: '2026-10-10 19:00'
+updated_date: '2026-10-10 19:14'
 labels: []
 milestone: m-0
 dependencies: []
 references:
   - ../../dev-docs/specs/2026-10-10-org-developer-docs-design.md
 type: docs
-project: change-requests
+project: dev
 ---
 
 ## Description

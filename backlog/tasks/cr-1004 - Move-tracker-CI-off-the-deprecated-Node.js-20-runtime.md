@@ -4,10 +4,11 @@ title: Move tracker CI off the deprecated Node.js 20 runtime
 status: To Do
 assignee: []
 created_date: '2026-10-09 11:39'
+updated_date: '2026-10-10 19:14'
 labels: []
 dependencies: []
 type: chore
-project: change-requests
+project: dev
 ---
 
 ## Description

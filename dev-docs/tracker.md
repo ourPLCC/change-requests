@@ -13,9 +13,9 @@ this guide wins.
 ## Setup
 
 - Keep the ourPLCC repos as siblings on your host, with this repo cloned
-  beside them as `change-requests/`. Each code repo's devcontainer clones it
-  there if missing, bind-mounts it at `/workspaces/change-requests`, sets
-  `BACKLOG_CWD=/workspaces/change-requests`, and installs the pinned
+  beside them as `dev/`. Each code repo's devcontainer clones it there if
+  missing, bind-mounts it at `/workspaces/dev`, sets
+  `BACKLOG_CWD=/workspaces/dev`, and installs the pinned
   `backlog` CLI.
 - Commit inside the container; **push from the host**. Backlog.md commits
   every change automatically (`auto_commit: true`).
@@ -102,7 +102,7 @@ dependency as satisfied, so review the CRs that depended on it.
 - **Demote** (`backlog task demote CR-N`) only when nothing cites the CR:
 
   ```bash
-  grep -rn 'CR-N\b' /workspaces/change-requests/backlog /workspaces/<repo> --include='*.md'
+  grep -rn 'CR-N\b' /workspaces/dev/backlog /workspaces/<repo> --include='*.md'
   git -C /workspaces/<repo> log --all --oneline -i --grep 'cr-N\b'
   ```
 
@@ -123,8 +123,8 @@ A CR's type is the conventional-commit type of the change that decides its
 version impact; its branch may carry other commit types too.
 
 Every CR has exactly one `project`: `plcc-ng`, `languages-ng`, `plcc-ng-demo`,
-`plcc-ng-devcontainer`, `course-materials-ng`, or `change-requests` (this
-tracker: its config, checks, CI, and migration tooling). Work spanning repos is one
+`plcc-ng-devcontainer`, `course-materials-ng`, or `dev` (this repo: the org
+docs and specs, the tracker's config, checks, CI, and migration tooling). Work spanning repos is one
 CR per repo linked with `--dep` (no umbrella CRs); `backlog task list --ready`
 hides a CR until its dependencies are done.
 
