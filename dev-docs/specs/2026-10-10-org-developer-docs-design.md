@@ -147,7 +147,11 @@ rules.
 Each code repo:
 
 ```markdown
-Read @../dev/ORG-AGENTS.md, @../dev/CONTRIBUTING.md, then @CONTRIBUTING.md before making changes.
+Read these, in order, before making changes:
+
+- @../dev/ORG-AGENTS.md
+- @../dev/CONTRIBUTING.md
+- @CONTRIBUTING.md
 
 ## Agent rules for this repo
 
@@ -157,7 +161,11 @@ Read @../dev/ORG-AGENTS.md, @../dev/CONTRIBUTING.md, then @CONTRIBUTING.md befor
 `dev` itself:
 
 ```markdown
-Read @ORG-AGENTS.md, @CONTRIBUTING.md, then @dev-docs/tracker.md before making changes.
+Read these, in order, before making changes:
+
+- @ORG-AGENTS.md
+- @CONTRIBUTING.md
+- @dev-docs/tracker.md
 ```
 
 - **Imports, not pointers.** A link inside an imported file is a suggestion
@@ -166,6 +174,9 @@ Read @ORG-AGENTS.md, @CONTRIBUTING.md, then @dev-docs/tracker.md before making c
 - **Order** runs general to specific: org agent rules, org guide, repo guide.
   In `dev`, the repo guide is the tracker guide, since most work here is on
   the tracker.
+- **One import per line**, with nothing after the path. Claude Code reads
+  an import up to the next whitespace, so `@CONTRIBUTING.md,` names a file
+  called `CONTRIBUTING.md,` and is skipped without an error.
 - **Relative paths** work on the host and in the container, since the repos
   are siblings in both. To an agent without import support, the line reads as
   an instruction.
@@ -181,9 +192,24 @@ No repo has a `CLAUDE.md`: Claude Code loads `AGENTS.md` when a project has
 no `CLAUDE.md`, and other agents read `AGENTS.md` natively. Claude-specific
 configuration (`.claude/settings.json`) stays where it is.
 
-**To verify during implementation:** that `@` imports inside `AGENTS.md`
-resolve, and how relative imports outside the repo are handled, including any
-one-time approval prompt. Setup instructions mention what is found.
+### Approving imports from outside the repo
+
+Claude Code loads an import from outside the repo only once the project has
+approved such imports, and until then skips it without an error, so a code
+repo's agents silently miss the org files. It did not prompt for the
+approval when the import was in `AGENTS.md`. The approval is stored per
+project path in `~/.claude.json`
+(`hasClaudeMdExternalIncludesApproved` and
+`hasClaudeMdExternalIncludesWarningShown`), which a container rebuild
+discards.
+
+So each code repo's devcontainer sets both flags for the repo's path in
+`postCreateCommand`, before any session can start and overwrite the file,
+with a `bin/` script that keeps every other setting. plcc-ng's
+`bin/install/claude-imports.bash` is the model. Its `CONTRIBUTING.md` says
+why the script exists and how to check: `/memory` in the CLI lists the
+imported files. `dev` needs no approval, since its imports are inside the
+repo.
 
 ## Changes and order
 
@@ -200,7 +226,8 @@ One CR per repo, linked by dependencies:
    existing CRs re-tagged, and self-references in the repo.
 3. **plcc-ng adopts the layout** (depends on 2): the devcontainer clones and
    mounts `../dev` and updates `BACKLOG_CWD` and `safe.directory`;
-   `CLAUDE.md` becomes `AGENTS.md`; `CONTRIBUTING.md` drops the org
+   `CLAUDE.md` becomes `AGENTS.md`, and the devcontainer approves its
+   imports from `../dev`; `CONTRIBUTING.md` drops the org
    material ("Tracking work", branch naming, commit style) and gains the
    opening line; the PR template is updated.
 4. **The remaining repos** (languages-ng, plcc-ng-demo,

@@ -1,1 +1,5 @@
-Read @ORG-AGENTS.md, @CONTRIBUTING.md, then @dev-docs/tracker.md before making changes.
+Read these, in order, before making changes:
+
+- @ORG-AGENTS.md
+- @CONTRIBUTING.md
+- @dev-docs/tracker.md
