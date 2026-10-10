@@ -60,6 +60,22 @@ class ConvertTest(unittest.TestCase):
             plcc_ng.assign_ids(issues)
         self.assertIn("499", str(cm.exception))
 
+    def test_assign_ids_remaps_duplicate_into_other_repos_range(self):
+        issues = plcc_ng.load_issues(self.repo)[:2]
+        issues = [dataclasses.replace(i, number=12) for i in issues]
+        ids, remaps = plcc_ng.assign_ids(issues, offset=500, dup_offset=100,
+                                         dup_range=range(600, 700))
+        self.assertEqual(sorted(ids.values()), [512, 612])
+        self.assertIn("CR-612", remaps[0])
+
+    def test_assign_ids_guards_other_repos_range(self):
+        issues = plcc_ng.load_issues(self.repo)[:2]
+        issues = [dataclasses.replace(i, number=150) for i in issues]
+        with self.assertRaises(SystemExit) as cm:
+            plcc_ng.assign_ids(issues, offset=500, dup_offset=100, dup_range=range(600, 700))
+        self.assertIn("CR-750", str(cm.exception))
+        self.assertIn("CR-600..CR-699", str(cm.exception))
+
     def test_convert_places_files_by_state(self):
         plcc_ng.convert(self.repo, self.tracker, self.triage)
         self.assertEqual(self.files("completed"),

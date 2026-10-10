@@ -1,10 +1,11 @@
 ---
 id: CR-1005
 title: migrate assign_ids hardcodes plcc-ng's CR-400..CR-499 duplicate range
-status: To Do
-assignee: []
+status: In Progress
+assignee:
+  - '@StoneyJackson'
 created_date: '2026-10-09 12:35'
-updated_date: '2026-10-10 19:14'
+updated_date: '2026-10-10 20:51'
 labels: []
 milestone: m-0
 dependencies: []
@@ -26,3 +27,9 @@ ordinal: 2000
 - [ ] #3 A test shows an ID outside the repo's reserved range is still rejected
 - [ ] #4 Re-running the plcc-ng migration produces the same IDs as before
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+assign_ids now takes dup_offset and dup_range (defaults: plcc-ng's 400 and CR-400..CR-499). Verified on branch cr-1005-derive-duplicate-id-range: plcc-ng's 197 legacy issues (from plcc-ng a9959188^) get identical IDs and remaps before and after. Open question for CR-1000/CR-1001: the ID table reserves no duplicate range for languages-ng (CR-501..CR-699) or plcc-ng-demo (CR-801..CR-899); whoever migrates them picks dup_offset/dup_range inside those ranges and records it in dev-docs/tracker.md.
+<!-- SECTION:NOTES:END -->
