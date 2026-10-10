@@ -122,6 +122,26 @@ class ConvertTest(unittest.TestCase):
         self.assertEqual(self.files("drafts"), [])
         self.assertTrue(other.exists())
 
+    def test_rerun_keeps_cr_that_quotes_provenance_line(self):
+        quoting = self.tracker / "backlog" / "tasks" / "cr-1001 - Quote.md"
+        quoting.write_text(
+            "---\nid: CR-1001\ntitle: Quote\n---\n\n## Description\n\n"
+            "<!-- SECTION:DESCRIPTION:BEGIN -->\nCR-160 ends with \"Migrated from plcc-ng #160.\"\n"
+            "Migrated from plcc-ng #160.\n\nMore text.\n<!-- SECTION:DESCRIPTION:END -->\n\n"
+            "## Implementation Notes\n\n<!-- SECTION:NOTES:BEGIN -->\nMigrated from plcc-ng #160.\n"
+            "<!-- SECTION:NOTES:END -->\n")
+        plcc_ng.convert(self.repo, self.tracker, self.triage)
+        self.assertTrue(quoting.exists())
+
+    def test_rerun_removes_previously_migrated_cr(self):
+        plcc_ng.convert(self.repo, self.tracker, self.triage)
+        race = self.tracker / "backlog" / "tasks" / "cr-160 - Race.md"
+        moved = race.with_name("cr-160 - Old-title.md")
+        race.rename(moved)
+        plcc_ng.convert(self.repo, self.tracker, self.triage)
+        self.assertFalse(moved.exists())
+        self.assertEqual(self.files("tasks"), ["cr-160 - Race.md"])
+
     def test_expected_counts(self):
         issues = plcc_ng.load_issues(self.repo)
         self.assertEqual(plcc_ng.expected_counts(issues, self.triage),
