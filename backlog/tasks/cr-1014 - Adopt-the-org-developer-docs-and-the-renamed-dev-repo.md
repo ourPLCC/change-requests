@@ -5,7 +5,7 @@ status: In Progress
 assignee:
   - '@StoneyJackson'
 created_date: '2026-10-10 18:34'
-updated_date: '2026-10-10 19:28'
+updated_date: '2026-10-10 19:30'
 labels: []
 milestone: m-0
 dependencies:
@@ -32,3 +32,9 @@ plcc-ng's CONTRIBUTING.md and CLAUDE.md restate workflow rules that now live in 
 - [ ] #5 The PR template and other docs refer to the tracker as ourPLCC/dev
 - [ ] #6 The PR description tells maintainers to rename their host ../change-requests folder to ../dev before rebuilding
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Found during implementation: in a worktree under .worktrees/<name>/, AGENTS.md's @../dev/ imports resolve to .worktrees/dev and are skipped. Sessions started in a worktree still get the org files through the main checkout's AGENTS.md (Claude Code also loads parent directories' instruction files), so nothing breaks today, but a session that doesn't load parent directories would miss them. Also: external @imports are skipped silently in claude -p until the project has been approved interactively once.
+<!-- SECTION:NOTES:END -->
