@@ -48,7 +48,8 @@ and would give this repo too many responsibilities.
 dev/
   README.md          what this repo is; where to start
   CONTRIBUTING.md    the org developer guide
-  AGENTS.md          agent-only rules for every ourPLCC repo
+  ORG-AGENTS.md      agent-only rules for every ourPLCC repo
+  AGENTS.md          this repo's agent entry point
   dev-docs/
     tracker.md       the full tracker guide
     specs/           org-wide specs
@@ -72,6 +73,7 @@ dev/
   `CONTRIBUTING.md`.
 - **`dev-docs/specs/`** holds specs for decisions that bind more than one
   repo, including the tracker's own design.
+- **`ORG-AGENTS.md`** and **`AGENTS.md`**: see Agent instructions.
 
 ## What each code repo keeps
 
@@ -119,46 +121,61 @@ it, wholly or in part.
 
 ## Agent instructions
 
-### What goes in `AGENTS.md`
+### What goes in agent files
 
-The first rule in `dev/AGENTS.md`, applying everywhere:
+The first rule in `dev/ORG-AGENTS.md`, applying everywhere:
 
 > If a human contributor would need to know it, it goes in `CONTRIBUTING.md`
-> or `dev-docs/`, even if agents need it too. `AGENTS.md` holds only what
+> or `dev-docs/`, even if agents need it too. Agent files hold only what
 > exists because the reader is an agent.
 
-The same test applies to agent memory: general knowledge belongs in the
-docs, not in memory files.
-
-### `dev/AGENTS.md`
+### `dev/ORG-AGENTS.md`
 
 - The rule above.
 - **Agent mechanics:** run `backlog` as a single plain command, never
   wrapped in other shell code (permission rules match the command's start);
-  never edit tracker files by hand; where memory goes and what belongs in it.
+  never edit tracker files by hand.
 - **Limits on autonomy:** create CRs or drafts only with the human's
   approval; during automated runs, record discovered work in the CR's notes;
   triage those notes with the human when closing the CR.
 
-### Each code repo's `AGENTS.md`
+`ORG-AGENTS.md` imports nothing, so a repo that imports it loads only these
+rules.
+
+### Each repo's `AGENTS.md`
+
+Each code repo:
 
 ```markdown
-Read @../dev/AGENTS.md, @../dev/CONTRIBUTING.md, then @CONTRIBUTING.md before making changes.
+Read @../dev/ORG-AGENTS.md, @../dev/CONTRIBUTING.md, then @CONTRIBUTING.md before making changes.
 
 ## Agent rules for this repo
 
 - …rules specific both to this repo and to agents, if any…
 ```
 
+`dev` itself:
+
+```markdown
+Read @ORG-AGENTS.md, @CONTRIBUTING.md, then @dev-docs/tracker.md before making changes.
+```
+
 - **Imports, not pointers.** A link inside an imported file is a suggestion
   an agent may skip; an import is always loaded. Importing the human docs
   gives agents the same rules humans read, from one source.
 - **Order** runs general to specific: org agent rules, org guide, repo guide.
+  In `dev`, the repo guide is the tracker guide, since most work here is on
+  the tracker.
 - **Relative paths** work on the host and in the container, since the repos
   are siblings in both. To an agent without import support, the line reads as
   an instruction.
 - **Long references** (`dev-docs/tracker.md`, release procedures) are linked
-  from `CONTRIBUTING.md`, not imported.
+  from `CONTRIBUTING.md`, not imported into other repos.
+- **Why `ORG-AGENTS.md` and not `dev/AGENTS.md`.** Imports are recursive, so
+  if `dev/AGENTS.md` both held the org rules and loaded `dev`'s own guides,
+  every repo importing it would load the tracker guide too. Separating the
+  org rules from `dev`'s entry point keeps `dev` shaped like every other
+  repo, and works for any agent that reads `AGENTS.md`.
 
 No repo has a `CLAUDE.md`: Claude Code loads `AGENTS.md` when a project has
 no `CLAUDE.md`, and other agents read `AGENTS.md` natively. Claude-specific
@@ -173,7 +190,7 @@ one-time approval prompt. Setup instructions mention what is found.
 One CR per repo, linked by dependencies:
 
 1. **Restructure the tracker repo into the `dev` layout.** Split the README
-   into `README.md`, `CONTRIBUTING.md`, `AGENTS.md`, and
+   into `README.md`, `CONTRIBUTING.md`, `ORG-AGENTS.md`, `AGENTS.md`, and
    `dev-docs/tracker.md`; add `dev-docs/specs/` holding this spec. Recording
    the tracker's own design spec there and adding the supersession
    convention to `CONTRIBUTING.md` are separate changes that follow this
