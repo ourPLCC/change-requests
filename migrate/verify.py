@@ -10,7 +10,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from migrate.plcc_ng import FOLDERS, PROVENANCE_PREFIX, expected_counts, load_issues
+from migrate.plcc_ng import FOLDERS, expected_counts, is_migrated, load_issues
 
 ID_RE = re.compile(r"^id: (\S+)$", re.MULTILINE)
 
@@ -33,8 +33,7 @@ def verify(repo_root, tracker_root, triage):
     backlog = tracker_root / "backlog"
     errors = []
     expected = expected_counts(load_issues(repo_root), triage)
-    migrated = {folder: [p for p in (backlog / folder).glob("*.md")
-                         if PROVENANCE_PREFIX in p.read_text(encoding="utf-8")]
+    migrated = {folder: [p for p in (backlog / folder).glob("*.md") if is_migrated(p)]
                 for folder in FOLDERS}
     for folder in FOLDERS:
         if len(migrated[folder]) != expected[folder]:

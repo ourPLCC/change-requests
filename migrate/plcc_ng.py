@@ -90,10 +90,15 @@ def _validate(issues, triage):
         raise SystemExit("cannot convert:\n  " + "\n  ".join(errors))
 
 
+def is_migrated(path):
+    """True if the file's description ends with this migration's provenance line."""
+    return PROVENANCE_END_RE.search(path.read_text(encoding="utf-8")) is not None
+
+
 def _remove_previous(backlog):
     for folder in FOLDERS:
         for path in (backlog / folder).glob("*.md"):
-            if PROVENANCE_END_RE.search(path.read_text(encoding="utf-8")):
+            if is_migrated(path):
                 path.unlink()
 
 
