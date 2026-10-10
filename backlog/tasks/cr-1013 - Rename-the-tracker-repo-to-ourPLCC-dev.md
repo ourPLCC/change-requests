@@ -5,7 +5,7 @@ status: In Progress
 assignee:
   - '@StoneyJackson'
 created_date: '2026-10-10 18:33'
-updated_date: '2026-10-10 19:13'
+updated_date: '2026-10-10 19:14'
 labels: []
 milestone: m-0
 dependencies:
@@ -13,7 +13,7 @@ dependencies:
 references:
   - ../../dev-docs/specs/2026-10-10-org-developer-docs-design.md
 type: chore
-project: change-requests
+project: dev
 ordinal: 3000
 ---
 
