@@ -194,7 +194,9 @@ the project and type rules.
 `migrate/` converts legacy in-repo trackers (Python 3 standard library). For
 plcc-ng: `python3 -m migrate.plcc_ng`, `python3 -m migrate.verify`,
 `python3 -m migrate.repo_links`; decisions in `migrate/plcc-ng-triage.json`,
-results in `migrate/reports/plcc-ng.md`. Tools that call `backlog` set
+results in `migrate/reports/plcc-ng.md`. Triage keys (`open`,
+`type_overrides`) are a legacy number (`"105"`) or, for a number two files
+share, the file stem (`"035-python-emitter-missing-semantics-blocks"`). Tools that call `backlog` set
 `BACKLOG_CWD` to their target explicitly.
 
 ## Working on the tracker tooling
