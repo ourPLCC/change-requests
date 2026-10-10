@@ -1,10 +1,11 @@
 ---
 id: CR-1006
 title: migrate _remove_previous deletes any file that contains the provenance text
-status: To Do
-assignee: []
+status: In Progress
+assignee:
+  - '@StoneyJackson'
 created_date: '2026-10-09 12:35'
-updated_date: '2026-10-10 19:14'
+updated_date: '2026-10-10 20:57'
 labels: []
 milestone: m-0
 dependencies: []
